@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <radio ref="field1"></radio>
+        <radio ref="field2"></radio>
+        <button @click="submit">提交</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="../src/util.js"></script>
+    <script src="../src/radio.js"></script>
+    <script src="../src/factory.js"></script>
+
+    <script>
+        Vue.component("radio", {
+            template: `<span @click="radio.check()">{{ radio.status }}</span>`,
+            data() {
+                return {
+                    radio: getComponent("radio")
+                }
+            }
+        });
+
+        new Vue({
+            el: "#app",
+            methods: {
+                submit: function() {
+                    console.log(this.$refs.field1.radio);
+                    console.log(this.$refs.field2.radio);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
