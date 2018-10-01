@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>radioItem</title>
+</head>
+<body>
+    <div id="app">
+        <radio ref="field1"></radio>
+        <button @click="submit">提交</button>
+        <button @click="disable">禁用</button>
+    </div>
+
+    <div id="radio" style="display: none">
+        <!-- vue取的是子元素，根据vue规则这里必须包裹一个根元素 -->
+        <ul>
+            <li v-for="(item, i) in radio.items">
+                <!-- 方式一，使用radio属性统一控制 -->
+                <input type="radio" 
+                    :id="ids[i]" @click="radio.check(i)" 
+                    :checked="radio.checkedIndex === i" :disabled="radio.disabled"/>
+
+                <!-- 方式二，使用radio-item精准控制 -->
+                <!-- <input type="radio" 
+                    :id="ids[i]" @click="radio.check(i)" 
+                    :checked="item.status === 4" :disabled="item.status <= 2"/> -->
+                <label :for="ids[i]">{{ item.status }}</label>
+            </li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="../src/util.js"></script>
+    <script src="../src/radio-item.js"></script>
+    <script src="../src/radio.js"></script>
+    <script src="../src/factory.js"></script>
+
+    <script>
+        Vue.component("radio", {
+            template: `#radio`,
+            data() {
+                // radio数量
+                let radioQuantity = 3;
+                return {
+                    ids: Array(radioQuantity).fill().map(() =>  `radio-${Date.now()}-${random()}`),
+                    radio: getComponent("radio", [radioQuantity])
+                }
+            }
+        });
+
+        new Vue({
+            el: "#app",
+            methods: {
+                submit() {
+                    console.log(this.$refs.field1.radio);
+                },
+                disable() {
+                    let radio = this.$refs.field1.radio;
+                    if(radio.disabled) {
+                        radio.undisable();
+                    }else {
+                        radio.disable();
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

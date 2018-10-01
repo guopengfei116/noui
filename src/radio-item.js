@@ -30,12 +30,12 @@ RadioItem.prototype = {
 
     check: function(index) {
         if(this.status === 1 || this.status ===2) return;
-        else this.status = 3;
+        else this.status = 4;
     },
 
     uncheck: function(index) {
         if(this.status === 1 || this.status ===2) return;
-        else this.status = 4;
+        else this.status = 3;
     },
 
     disable: function() {
