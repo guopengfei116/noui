@@ -7,7 +7,7 @@
  */
 function getComponent(name) {
     var componentsMap = {
-        "radio": RadioItem
+        radioItem: RadioItem
     }
 
     return new componentsMap[name]();

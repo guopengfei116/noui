@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>radioItem</title>
 </head>
 <body>
     <div id="app">
@@ -13,17 +13,29 @@
         <button @click="submit">提交</button>
     </div>
 
+    <div id="radio-item" style="display: none">
+        <!-- vue取的是子元素，根据vue规则这里必须包裹一个根元素 -->
+        <div>
+            <!-- 这里方法调用必须加小括号，因为没有代理到vue实例身上 -->
+            <input :id="id" type="radio" :checked="radio.status === 4" @click="radio.switch()"/>
+            <label :for="id">{{ radio.status }}</label>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="../src/util.js"></script>
+    <script src="../src/radio-item.js"></script>
     <script src="../src/radio.js"></script>
     <script src="../src/factory.js"></script>
 
     <script>
+        // 核心data来自noui-radio-item
         Vue.component("radio", {
-            template: `<span @click="radio.check()">{{ radio.status }}</span>`,
+            template: "#radio-item",
             data() {
                 return {
-                    radio: getComponent("radio")
+                    id: `radio-${Date.now()}-${random()}`,
+                    radio: getComponent("radioItem")
                 }
             }
         });

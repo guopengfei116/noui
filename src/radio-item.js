@@ -23,20 +23,27 @@ function RadioItem() {
 RadioItem.prototype = {
     constructor: RadioItem,
 
-    // 切换
-    check: function(index) {
+    switch: function() {
         if(this.status === 1 || this.status ===2) return;
         else this.status = this.status === 3? 4: 3;
     },
 
-    // 禁用
+    check: function(index) {
+        if(this.status === 1 || this.status ===2) return;
+        else this.status = 3;
+    },
+
+    uncheck: function(index) {
+        if(this.status === 1 || this.status ===2) return;
+        else this.status = 4;
+    },
+
     disable: function() {
         if(this.status === 1 || this.status ===2) return;
         else if(this.status == 3) this.status = 1;
         else if(this.status == 4) this.status = 2;
     },
 
-    // 启用
     undisable: function() {
         if(this.status === 1) this.status = 3;
         else if(this.status === 2) this.status = 4;
